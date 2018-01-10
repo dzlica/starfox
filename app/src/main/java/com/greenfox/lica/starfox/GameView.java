@@ -1,6 +1,7 @@
 package com.greenfox.lica.starfox;
 
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 /**
@@ -55,4 +56,16 @@ public class GameView extends SurfaceView implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_DOWN:
+                break;
+        }
+        return true;
+    }
+    
 }

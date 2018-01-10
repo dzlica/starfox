@@ -17,14 +17,14 @@ public class Star {
     private int minY;
 
     public Star(int screenX, int screenY) {
-        maxX = screenX;
-        maxY = screenY;
-        minX = 0;
-        minY = 0;
+        this.maxX = screenX;
+        this.maxY = screenY;
+        this.minX = 0;
+        this.minY = 0;
         Random generator = new Random();
-        speed = generator.nextInt(10);
-        x = generator.nextInt(maxX);
-        y = generator.nextInt(maxY);
+        this.speed = generator.nextInt(10);
+        this.x = generator.nextInt(maxX);
+        this.y = generator.nextInt(maxY);
     }
 
     public void update(int playerSpeed) {

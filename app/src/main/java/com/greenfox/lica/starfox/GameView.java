@@ -38,33 +38,33 @@ public class GameView extends SurfaceView implements Runnable {
     int highScore[] = new int[4];
     SharedPreferences sharedPreferences;
 
-   public GameView(Context context, int screenX, int screenY) {
-       super(context);
-       this.player = new Player(context, screenX, screenY);
-       this.surfaceHolder = getHolder();
-       this.paint = new Paint();
-       this.screenX = screenX;
-       this.countMisses = 0;
-       this.isGameOver = false;
+    public GameView(Context context, int screenX, int screenY) {
+        super(context);
+        this.player = new Player(context, screenX, screenY);
+        this.surfaceHolder = getHolder();
+        this.paint = new Paint();
+        this.screenX = screenX;
+        this.countMisses = 0;
+        this.isGameOver = false;
 
-       int starNums = 100;
-       for (int i = 0; i < starNums; i++) {
-           Star s = new Star(screenX, screenY);
-           stars.add(s);
-       }
+        int starNums = 100;
+        for (int i = 0; i < starNums; i++) {
+            Star s = new Star(screenX, screenY);
+            stars.add(s);
+        }
 
-       enemies = new Enemy[enemyCount];
-       for(int j=0; j<enemyCount; j++){
-           enemies[j] = new Enemy(context, screenX, screenY);
-       }
-       boom = new Boom(context);
+        enemies = new Enemy[enemyCount];
+        for (int j = 0; j < enemyCount; j++) {
+            enemies[j] = new Enemy(context, screenX, screenY);
+        }
+        boom = new Boom(context);
 
-       score = 0;
-       sharedPreferences = context.getSharedPreferences("SHAR_PREF_NAME",Context.MODE_PRIVATE);
-       highScore[0] = sharedPreferences.getInt("score1",0);
-       highScore[1] = sharedPreferences.getInt("score2",0);
-       highScore[2] = sharedPreferences.getInt("score3",0);
-       highScore[3] = sharedPreferences.getInt("score4",0);
+        score = 0;
+        sharedPreferences = context.getSharedPreferences("SHAR_PREF_NAME", Context.MODE_PRIVATE);
+        highScore[0] = sharedPreferences.getInt("score1", 0);
+        highScore[1] = sharedPreferences.getInt("score2", 0);
+        highScore[2] = sharedPreferences.getInt("score3", 0);
+        highScore[3] = sharedPreferences.getInt("score4", 0);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class GameView extends SurfaceView implements Runnable {
                             playing = false;
                             isGameOver = true;
 
-                            for(int j=0; j<4; j++){
-                                if(highScore[j]<score){
+                            for (int j = 0; j < 4; j++) {
+                                if (highScore[j] < score) {
 
                                     final int finalI = j;
                                     highScore[j] = score;
@@ -117,9 +117,9 @@ public class GameView extends SurfaceView implements Runnable {
                                 }
                             }
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            for(int k=0; k<4; k++){
-                                int z = k+1;
-                                editor.putInt("score" + z,highScore[i]);
+                            for (int k = 0; k < 4; k++) {
+                                int z = k + 1;
+                                editor.putInt("score" + z, highScore[k]);
                             }
                             editor.apply();
                         }
@@ -133,9 +133,9 @@ public class GameView extends SurfaceView implements Runnable {
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
             canvas = surfaceHolder.lockCanvas();
-            canvas.drawColor(Color.rgb(34,139,34));
+            canvas.drawColor(Color.rgb(34, 139, 34));
 
-            paint.setColor(Color.rgb(204,204,0));
+            paint.setColor(Color.rgb(204, 204, 0));
             paint.setTextSize(20);
 
             for (Star s : stars) {
@@ -144,7 +144,7 @@ public class GameView extends SurfaceView implements Runnable {
             }
 
             paint.setTextSize(30);
-            canvas.drawText("Score:" + score,100,50,paint);
+            canvas.drawText("Score:" + score, 100, 50, paint);
 
             canvas.drawBitmap(
                     player.getBitmap(),
@@ -172,10 +172,10 @@ public class GameView extends SurfaceView implements Runnable {
                 paint.setTextSize(150);
                 paint.setTextAlign(Paint.Align.CENTER);
 
-                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
-                canvas.drawText("Retake exam!",canvas.getWidth()/2,yPos,paint);
+                int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+                canvas.drawText("Retake exam!", canvas.getWidth() / 2, yPos, paint);
             }
-          
+
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -214,5 +214,5 @@ public class GameView extends SurfaceView implements Runnable {
         }
         return true;
     }
-    
+
 }

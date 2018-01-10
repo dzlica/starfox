@@ -8,25 +8,37 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
+
 /**
  * Created by lica on 2018. 01. 10..
  */
 
 public class GameView extends SurfaceView implements Runnable {
+
     volatile boolean playing;
     private Thread gameThread = null;
     private Player player;
+
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
     private Enemy[] enemies;
     private int enemyCount = 3;
 
+    private ArrayList<Star> stars = new
+            ArrayList<Star>();
+
    public GameView(Context context, int screenX, int screenY) {
         super(context);
         player = new Player(context, screenX, screenY);
         surfaceHolder = getHolder();
         paint = new Paint();
+
+       int starNums = 100;
+       for (int i = 0; i < starNums; i++) {
+           Star s  = new Star(screenX, screenY);
+           stars.add(s);
 
        enemies = new Enemy[enemyCount];
        for(int i=0; i<enemyCount; i++){
@@ -40,15 +52,16 @@ public class GameView extends SurfaceView implements Runnable {
     public void run() {
         while (playing) {
             update();
-
             draw();
-            
             control();
         }
     }
 
     private void update() {
         player.update();
+
+        for (Star s : stars) {
+            s.update(player.getSpeed());
 
         for(int i=0; i<enemyCount; i++){
             enemies[i].update(player.getSpeed());
@@ -59,6 +72,14 @@ public class GameView extends SurfaceView implements Runnable {
         if (surfaceHolder.getSurface().isValid()) {
             canvas = surfaceHolder.lockCanvas();
             canvas.drawColor(Color.GREEN);
+
+            paint.setColor(Color.rgb(34,139,34));
+
+            for (Star s : stars) {
+                paint.setStrokeWidth(s.getStarWidth());
+                canvas.drawPoint(s.getX(), s.getY(), paint);
+            }
+
             canvas.drawBitmap(
                     player.getBitmap(),
                     player.getX(),

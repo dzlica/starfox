@@ -24,14 +24,14 @@ public class Player {
     private Rect detectCollision;
 
     public Player(Context context, int screenX, int screenY) {
-        x = 75;
-        y = 50;
-        speed = 1;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
-        maxY = screenY - bitmap.getHeight();
-        minY = 0;
-        boosting = false;
-        detectCollision =  new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
+        this.x = 75;
+        this.y = 50;
+        this.speed = 1;
+        this.bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
+        this.maxY = screenY - bitmap.getHeight();
+        this.minY = 0;
+        this.boosting = false;
+        this.detectCollision =  new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
     }
 
     public void setBoosting() {

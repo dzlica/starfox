@@ -24,16 +24,16 @@ public class Enemy {
 
 
     public Enemy(Context context, int screenX, int screenY) {
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.enemy);
-        maxX = screenX;
-        maxY = screenY;
-        minX = 0;
-        minY = 0;
+        this.bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.enemy);
+        this.maxX = screenX;
+        this.maxY = screenY;
+        this.minX = 0;
+        this.minY = 0;
 
         Random generator = new Random();
-        speed = generator.nextInt(6) + 10;
-        x = screenX;
-        y = generator.nextInt(maxY) - bitmap.getHeight();
+        this.speed = generator.nextInt(6) + 10;
+        this.x = screenX;
+        this.y = generator.nextInt(maxY) - bitmap.getHeight();
 
         detectCollision = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
     }
@@ -41,17 +41,25 @@ public class Enemy {
     public void update(int playerSpeed) {
         x -= playerSpeed;
         x -= speed;
+
+        if (y < minY) {
+            y = minY;
+        }
+        if (y > maxY) {
+            y = maxY;
+        }
+
         if (x < minX - bitmap.getWidth()) {
             Random generator = new Random();
             speed = generator.nextInt(10) + 10;
             x = maxX;
             y = generator.nextInt(maxY) - bitmap.getHeight();
 
-            detectCollision.left = x;
-            detectCollision.top = y;
-            detectCollision.right = x + bitmap.getWidth();
-            detectCollision.bottom = y + bitmap.getHeight();
         }
+        detectCollision.left = x;
+        detectCollision.top = y;
+        detectCollision.right = x + bitmap.getWidth();
+        detectCollision.bottom = y + bitmap.getHeight();
     }
 
     public void setX(int x) {

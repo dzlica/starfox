@@ -15,10 +15,10 @@ public class Boom {
     private int y;
 
     public Boom(Context context) {
-        bitmap = BitmapFactory.decodeResource
+        this.bitmap = BitmapFactory.decodeResource
                 (context.getResources(), R.drawable.boom);
-        x = -250;
-        y = -250;
+        this.x = -250;
+        this.y = -250;
     }
 
     public void setX(int x) {

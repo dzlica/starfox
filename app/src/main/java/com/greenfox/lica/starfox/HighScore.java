@@ -5,15 +5,11 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import org.w3c.dom.Text;
 
-/**
- * Created by nezih on 10-Jan-18.
- */
-
-public class HighScore extends AppCompatActivity{
+public class HighScore extends AppCompatActivity {
 
     TextView textView,textView2,textView3,textView4;
+
     SharedPreferences sharedPreferences;
 
     @Override

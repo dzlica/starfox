@@ -91,7 +91,7 @@ public class GameView extends SurfaceView implements Runnable {
                     if (player.getDetectCollision().exactCenterX() >= enemies[i].getDetectCollision().exactCenterX()) {
                         countMisses++;
                         flag = false;
-                        if (countMisses == 5) {
+                        if (countMisses == 10) {
                             playing = false;
                             isGameOver = true;
                         }
@@ -107,6 +107,7 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.rgb(34,139,34));
 
             paint.setColor(Color.rgb(204,204,0));
+            paint.setTextSize(20);
 
             for (Star s : stars) {
                 paint.setStrokeWidth(s.getStarWidth());
@@ -134,6 +135,14 @@ public class GameView extends SurfaceView implements Runnable {
                     boom.getY(),
                     paint
             );
+
+            if (isGameOver) {
+                paint.setTextSize(150);
+                paint.setTextAlign(Paint.Align.CENTER);
+
+                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+                canvas.drawText("Retake exam!",canvas.getWidth()/2,yPos,paint);
+            }
           
             surfaceHolder.unlockCanvasAndPost(canvas);
         }

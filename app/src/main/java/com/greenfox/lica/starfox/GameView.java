@@ -20,23 +20,27 @@ public class GameView extends SurfaceView implements Runnable {
     volatile boolean playing;
     private Thread gameThread = null;
     private Player player;
-
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
     private Enemy[] enemies;
     private int enemyCount = 3;
-
     private ArrayList<Star> stars = new
             ArrayList<Star>();
-
     private Boom boom;
+    int screenX;
+    int countMisses;
+    boolean flag;
+    private boolean isGameOver;
 
    public GameView(Context context, int screenX, int screenY) {
-        super(context);
-        player = new Player(context, screenX, screenY);
-        surfaceHolder = getHolder();
-        paint = new Paint();
+       super(context);
+       this.player = new Player(context, screenX, screenY);
+       this.surfaceHolder = getHolder();
+       this.paint = new Paint();
+       this.screenX = screenX;
+       this.countMisses = 0;
+       this.isGameOver = false;
 
        int starNums = 100;
        for (int i = 0; i < starNums; i++) {
@@ -62,17 +66,37 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         player.update();
+        boom.setX(-250);
+        boom.setY(-250);
 
         for (Star s : stars) {
             s.update(player.getSpeed());
         }
-      
-        for(int i=0; i<enemyCount; i++){
+
+        for (int j = 0; j < enemyCount; j++) {
+            if (enemies[j].getX() == screenX) {
+                flag = true;
+            }
+        }
+
+
+        for (int i = 0; i < enemyCount; i++) {
             enemies[i].update(player.getSpeed());
             if (Rect.intersects(player.getDetectCollision(), enemies[i].getDetectCollision())) {
                 boom.setX(enemies[i].getX());
                 boom.setY(enemies[i].getY());
                 enemies[i].setX(-500);
+            } else {
+                if (flag) {
+                    if (player.getDetectCollision().exactCenterX() >= enemies[i].getDetectCollision().exactCenterX()) {
+                        countMisses++;
+                        flag = false;
+                        if (countMisses == 10) {
+                            playing = false;
+                            isGameOver = true;
+                        }
+                    }
+                }
             }
         }
     }
@@ -83,6 +107,7 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.rgb(34,139,34));
 
             paint.setColor(Color.rgb(204,204,0));
+            paint.setTextSize(20);
 
             for (Star s : stars) {
                 paint.setStrokeWidth(s.getStarWidth());
@@ -110,6 +135,14 @@ public class GameView extends SurfaceView implements Runnable {
                     boom.getY(),
                     paint
             );
+
+            if (isGameOver) {
+                paint.setTextSize(150);
+                paint.setTextAlign(Paint.Align.CENTER);
+
+                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+                canvas.drawText("Retake exam!",canvas.getWidth()/2,yPos,paint);
+            }
           
             surfaceHolder.unlockCanvasAndPost(canvas);
         }

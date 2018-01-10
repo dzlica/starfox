@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    
+
     private ImageButton buttonPlay;
 
     @Override
@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
-        //starting game activity
         startActivity(new Intent(this, GameActivity.class));
     }
 }

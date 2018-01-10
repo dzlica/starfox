@@ -70,11 +70,8 @@ public class GameView extends SurfaceView implements Runnable {
         for(int i=0; i<enemyCount; i++){
             enemies[i].update(player.getSpeed());
             if (Rect.intersects(player.getDetectCollision(), enemies[i].getDetectCollision())) {
-
-                //displaying boom at that location
                 boom.setX(enemies[i].getX());
                 boom.setY(enemies[i].getY());
-
                 enemies[i].setX(-200);
             }
         }

@@ -3,6 +3,7 @@ package com.greenfox.lica.starfox;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 import java.util.Random;
 
@@ -19,6 +20,7 @@ public class Enemy {
     private int minX;
     private int maxY;
     private int minY;
+    private Rect detectCollision;
 
 
     public Enemy(Context context, int screenX, int screenY) {
@@ -32,6 +34,8 @@ public class Enemy {
         speed = generator.nextInt(6) + 10;
         x = screenX;
         y = generator.nextInt(maxY) - bitmap.getHeight();
+
+        detectCollision = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
     }
 
     public void update(int playerSpeed) {
@@ -42,7 +46,20 @@ public class Enemy {
             speed = generator.nextInt(10) + 10;
             x = maxX;
             y = generator.nextInt(maxY) - bitmap.getHeight();
+
+            detectCollision.left = x;
+            detectCollision.top = y;
+            detectCollision.right = x + bitmap.getWidth();
+            detectCollision.bottom = y + bitmap.getHeight();
         }
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public Rect getDetectCollision() {
+        return detectCollision;
     }
 
     public Bitmap getBitmap() {

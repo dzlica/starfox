@@ -21,11 +21,13 @@ public class Player {
     private final int MIN_SPEED = 1;
     private final int MAX_SPEED = 20;
 
-    public Player(Context context) {
+    public Player(Context context, int screenX, int screenY) {
         x = 75;
         y = 50;
         speed = 1;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
+        maxY = screenY - bitmap.getHeight();
+        minY = 0;
         boosting = false;
     }
 
@@ -33,28 +35,29 @@ public class Player {
         boosting = true;
     }
 
+    public void stopBoosting() {
+        boosting = false;
+    }
+
     public void update(){
         if (boosting) {
-            //speeding up the ship
+
             speed += 2;
         } else {
-            //slowing down if not boosting
+
             speed -= 5;
         }
-        //controlling the top speed
+
         if (speed > MAX_SPEED) {
             speed = MAX_SPEED;
         }
-        //if the speed is less than min speed
-        //controlling it so that it won't stop completely
+
         if (speed < MIN_SPEED) {
             speed = MIN_SPEED;
         }
 
-        //moving the ship down
         y -= speed + GRAVITY;
 
-        //but controlling it also so that it won't go off the screen
         if (y < minY) {
             y = minY;
         }

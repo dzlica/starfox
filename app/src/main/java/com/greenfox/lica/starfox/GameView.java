@@ -61,7 +61,7 @@ public class GameView extends SurfaceView implements Runnable {
             canvas = surfaceHolder.lockCanvas();
             canvas.drawColor(Color.GREEN);
 
-            paint.setColor(Color.YELLOW);
+            paint.setColor(Color.rgb(34,139,34));
 
             for (Star s : stars) {
                 paint.setStrokeWidth(s.getStarWidth());

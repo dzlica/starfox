@@ -18,13 +18,10 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public void run() {
         while (playing) {
-            //to update the frame
             update();
 
-            //to draw the frame
             draw();
-
-            //to control
+            
             control();
         }
     }
@@ -48,7 +45,6 @@ public class GameView extends SurfaceView implements Runnable {
     public void pause() {
         playing = false;
         try {
-            //stopping the thread
             gameThread.join();
         } catch (InterruptedException e) {
         }

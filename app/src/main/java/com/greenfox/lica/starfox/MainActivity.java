@@ -13,22 +13,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-    //image button
+    
     private ImageButton buttonPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //setting the orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
-        //getting the button
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
-
-        //adding a click listener
         buttonPlay.setOnClickListener(this);
     }
 

@@ -63,7 +63,7 @@ public class GameView extends SurfaceView implements Runnable {
         for (Star s : stars) {
             s.update(player.getSpeed());
         }
-
+      
         for(int i=0; i<enemyCount; i++){
             enemies[i].update(player.getSpeed());
             if (Rect.intersects(player.getDetectCollision(), enemies[i].getDetectCollision())) {
@@ -98,10 +98,9 @@ public class GameView extends SurfaceView implements Runnable {
                         paint
                 );
             }
-            
+          
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
-
     }
 
     private void control() {

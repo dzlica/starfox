@@ -116,12 +116,12 @@ public class GameView extends SurfaceView implements Runnable {
                                     break;
                                 }
                             }
-                            SharedPreferences.Editor e = sharedPreferences.edit();
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
                             for(int k=0; k<4; k++){
                                 int z = k+1;
-                                e.putInt("score"+z,highScore[i]);
+                                editor.putInt("score" + z,highScore[i]);
                             }
-                            e.apply();
+                            editor.apply();
                         }
                     }
                 }
@@ -144,7 +144,7 @@ public class GameView extends SurfaceView implements Runnable {
             }
 
             paint.setTextSize(30);
-            canvas.drawText("Score:"+score,100,50,paint);
+            canvas.drawText("Score:" + score,100,50,paint);
 
             canvas.drawBitmap(
                     player.getBitmap(),

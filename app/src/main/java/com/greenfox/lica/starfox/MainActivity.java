@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
         buttonScore = (ImageButton) findViewById(R.id.buttonScore);
         buttonPlay.setOnClickListener(this);
-        buttonPlay.setOnClickListener(this);
+        buttonScore.setOnClickListener(this);
     }
 
     @Override

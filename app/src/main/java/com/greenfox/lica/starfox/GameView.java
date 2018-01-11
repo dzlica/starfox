@@ -174,7 +174,7 @@ public class GameView extends SurfaceView implements Runnable {
 
                 int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
                 if (score > 500) {
-                    canvas.drawText("Game over", canvas.getWidth() / 2, yPos, paint);
+                    canvas.drawText("You passed the exam!", canvas.getWidth() / 2, yPos, paint);
                 }
                 else canvas.drawText("Retake exam!", canvas.getWidth() / 2, yPos, paint);
             }
